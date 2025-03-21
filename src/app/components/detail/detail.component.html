@@ -1,0 +1,24 @@
+<div class="container mt-4">
+
+  <button (click)="goBack()" class="btn btn-primary my-3">← Back to Dashboard</button>
+
+  <h2>Weather Details for {{ cityName }}</h2>
+  <p>Temperature Unit: {{ unit === 'metric' ? 'Celsius' : 'Fahrenheit' }}</p>
+
+  <div *ngIf="currentWeather">
+    <h4>Current Weather:</h4>
+    <img [src]="utilService.getIcon(currentWeather.weather[0].main)" alt="Weather Icon" width="80" class="my-2">
+    <p>Temperature: <strong>{{ currentWeather.main.temp }}°</strong></p>
+    <p>Condition: <em>{{ currentWeather.weather[0].description }}</em></p>
+  </div>
+
+  <div *ngIf="forecastList.length > 0">
+    <h4 class="mt-4">Forecast:</h4>
+    <div *ngFor="let item of forecastList | slice:0:5" class="mb-2 p-2 border rounded">
+      <p>Date & Time: {{ item.dt_txt }}</p>
+      <img [src]="utilService.getIcon(currentWeather.weather[0].main)" alt="Weather Icon" width="50">
+      <p>Temp: {{ item.main.temp }}°</p>
+      <p>Condition: {{ item.weather[0].description }}</p>
+    </div>
+  </div>
+</div>

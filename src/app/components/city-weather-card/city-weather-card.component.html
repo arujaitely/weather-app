@@ -1,0 +1,21 @@
+<div class="card shadow-sm mb-6">
+    <div class="card-body text-center">
+        <h5 class="card-title">{{weather.name}}</h5>
+
+        <p class="card-text">
+            Current Temperature: {{weather.main.temp}} <strong>°</strong><br>
+        </p>
+
+        <img [src]="utilService.getIcon(weather.weather[0].main)" width="80" class="my-3">
+
+        <p class="card-text">{{weather.weather[0].description}}</p>
+
+    </div>
+
+    <button class="btn btn-outline-info me-2" (click)="viewDetails()">
+        View Details
+    </button>
+    <button class="btn btn-outline-danger" (click)="deleteCity(weather.name)">
+        Delete
+    </button>
+</div>
