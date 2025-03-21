@@ -9,13 +9,21 @@ import { WeatherService } from 'src/app/services/weather.service';
 export class DashboardComponent implements OnInit{
 
   weatherData: any[] = [];
-  cities: string[] = ['New York', 'San Francisco', 'Chicago'];
+  cities: string[] = [];
   unit: string = 'metric';
   zip: string = '';
 
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
+    const storedCities = localStorage.getItem('trackedCities');
+    if (storedCities) {
+      this.cities = JSON.parse(storedCities);
+    } else {
+      // Initialize with default cities
+      this.cities = ['New York', 'Chicago', 'San Francisco'];
+      this.saveCities();
+    }
     this.loadWeatherData();
   }
 
@@ -53,5 +61,9 @@ export class DashboardComponent implements OnInit{
   deleteCity(city: string) {
     this.cities = this.cities.filter(c => c !== city);
     this.loadWeatherData();
+  }
+
+  saveCities() {
+    localStorage.setItem('trackedCities', JSON.stringify(this.cities));
   }
 }
